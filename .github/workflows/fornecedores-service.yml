@@ -1,0 +1,24 @@
+name: Build fornecedores-service
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v5
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+          cache-dependency-path: fornecedores-service/pom.xml
+
+      - name: Compilar fornecedores-service com Maven
+        working-directory: fornecedores-service
+        run: mvn -B package
